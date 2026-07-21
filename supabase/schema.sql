@@ -45,10 +45,27 @@ create policy "profiles_update_own" on public.profiles
   with check (auth.uid() = id);
 
 -- ★ 권한 상승 방지 (중요)
--- RLS 정책만으로는 "어떤 컬럼을 바꿀 수 있는가"를 막지 못하므로,
--- 컬럼 단위 권한으로 일반 사용자가 role 을 스스로 바꾸는 것을 차단한다.
--- 일반 사용자(authenticated)는 아래 4개 컬럼만 수정 가능. role/id/created_at 등은 불가.
--- 관리자 기능은 service_role(RLS·컬럼권한 무시)로만 role 을 변경한다.
+-- Supabase 는 public 테이블 권한을 자동 재부여하므로 컬럼 권한 회수만으로는 부족.
+-- → 트리거로 role 변경 자체를 차단한다. 일반 사용자(authenticated/anon)가
+--   role 을 바꾸려 하면 예외 발생. 관리자 백엔드(service_role/postgres)만 변경 가능.
+-- (참고: SECURITY INVOKER 여야 current_user 가 호출자 역할로 잡힘 → DEFINER 쓰지 말 것)
+create or replace function public.prevent_role_change()
+returns trigger language plpgsql as $$
+begin
+  if new.role is distinct from old.role
+     and current_user not in ('postgres', 'service_role', 'supabase_admin') then
+    raise exception 'role 은 관리자만 변경할 수 있습니다.';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_profiles_prevent_role_change on public.profiles;
+create trigger trg_profiles_prevent_role_change
+  before update on public.profiles
+  for each row execute function public.prevent_role_change();
+
+-- (보조) 컬럼 권한도 좁혀둔다. Supabase 가 되돌릴 수 있으나 트리거가 최종 방어선.
 revoke update on public.profiles from anon, authenticated;
 grant  update (name, company, title, phone) on public.profiles to authenticated;
 
