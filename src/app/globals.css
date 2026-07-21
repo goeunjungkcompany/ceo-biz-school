@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #ffffff;        /* white */
+  --surface: #f4f7fc;      /* cool light (섹션 교차 배경) */
+  --ink: #101827;          /* cool near-black */
+  --muted: #5b6577;        /* cool slate */
+  --line: #e2e8f1;         /* cool gray */
+  --navy: #1428a0;         /* Samsung 딥 블루 (primary) */
+  --accent: #1f66e0;       /* 쿨톤 브라이트 블루 (accent) */
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-navy: var(--navy);
+  --color-accent: var(--accent);
+
+  /* 전 폰트 Noto Sans KR로 통일 — 작은 라벨·숫자의 '코딩 폰트' 느낌 제거 */
+  --font-sans: "Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  /* 한글 줄바꿈: 단어(어절) 중간에서 끊기지 않게 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* editorial: no rounded corners anywhere by default */
+* {
+  border-radius: 0;
+}
+
+/* 절제된 등장 효과 (모션 감소 설정 존중) */
+@media (prefers-reduced-motion: no-preference) {
+  main > section {
+    animation: reveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
