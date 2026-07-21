@@ -38,7 +38,7 @@ const PROGRAMS = [
 ];
 
 const NOTICES = [
-  { status: { ko: "모집중", en: "Open" }, active: true, title: { ko: "중국 AI(베이징) 첨단기술 기업 심층 탐방 신청 접수", en: "Applications open: China (Beijing) AI deep-tech company tour" }, desc: { ko: "2026년 6월 29일(월) — 7월 3일(금) · 선착순 20명 · 베이징 AI 최전선 현장 탐방", en: "Jun 29 – Jul 3, 2026 · first 20 applicants · Beijing AI frontier field tour" }, date: "2026.05.10" },
+  { status: { ko: "모집중", en: "Open" }, active: true, deadline: "2026-07-03", title: { ko: "중국 AI(베이징) 첨단기술 기업 심층 탐방 신청 접수", en: "Applications open: China (Beijing) AI deep-tech company tour" }, desc: { ko: "2026년 6월 29일(월) — 7월 3일(금) · 선착순 20명 · 베이징 AI 최전선 현장 탐방", en: "Jun 29 – Jul 3, 2026 · first 20 applicants · Beijing AI frontier field tour" }, date: "2026.05.10" },
   { status: { ko: "완료", en: "Done" }, active: false, title: { ko: "항저우 AI 첨단기술 심층 탐방 인사이트 프로그램 성료", en: "Hangzhou AI deep-tech insight tour successfully concluded" }, desc: { ko: "중국 항저우 알리바바·유니트리 로보틱스 등 AI 첨단기업 현장 탐방 성공적 완료", en: "Field tour of Alibaba, Unitree Robotics and others in Hangzhou completed" }, date: "2026.04.29" },
   { status: { ko: "완료", en: "Done" }, active: false, title: { ko: "AI시대 학습관리시스템(LMS)연계 구축을 위한 정책 간담회 참석", en: "Attended policy forum on building an AI-era LMS" }, desc: { ko: "2026.4.29(수) 국가교육위원회, 국가인공지능전략위원회 주관", en: "Apr 29, 2026 · hosted by the National Education & AI Strategy Committees" }, date: "2026.04.29" },
   { status: { ko: "예정", en: "Upcoming" }, active: true, title: { ko: "CEO전략최신화과정 3월 강의 안내 — AI로 기업가치를 높이는 법", en: "March lecture — How to raise enterprise value with AI" }, desc: { ko: "3월 4일(수) 18:00 서울대 교수회관", en: "Mar 4, 18:00 · SNU Faculty Hall" }, date: "2026.02.22" },
@@ -76,6 +76,10 @@ const CAMPUSES = [
 ];
 
 const TX = {
+  heroTitle: {
+    ko: { pre: "혁신의 최전선에서 전략을 ", accent: "최신화", post: "하다" },
+    en: { pre: "Renew your strategy at the frontier of ", accent: "innovation", post: "" },
+  },
   heroLead: { ko: "세상에서 가장 빠르게 변하는 지식과 전략을 연구하고, 전파하고, 교육합니다. CEO의 지식과 전략이 최신화될 때, 기업의 미래가 바뀝니다.", en: "We research, share and teach the world's fastest-changing knowledge and strategy. When a CEO's knowledge and strategy are renewed, the company's future changes." },
   ctaProgram: { ko: "프로그램 안내", en: "Programs" },
   ctaConsult: { ko: "입학 상담", en: "Get in touch" },
@@ -107,6 +111,7 @@ const WRAP = "mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-16";
 export default async function Home() {
   const locale = await getLocale();
   const p = (x: { ko: string; en: string }) => pick(locale, x);
+  const today = new Date();
 
   return (
     <main>
@@ -115,7 +120,9 @@ export default async function Home() {
         <div className={`${WRAP} pt-24 pb-16 text-center lg:pt-32 lg:pb-20`} style={{ backgroundImage: "linear-gradient(to right, rgba(20,40,160,0.05) 1px, transparent 1px)", backgroundSize: "84px 100%" }}>
           <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">CEO Business School</div>
           <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold leading-[1.12] tracking-tight text-ink sm:text-5xl">
-            혁신의 최전선에서 전략을 <span className="text-accent">최신화</span>하다
+            {pick(locale, TX.heroTitle).pre}
+            <span className="text-accent">{pick(locale, TX.heroTitle).accent}</span>
+            {pick(locale, TX.heroTitle).post}
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">{p(TX.heroLead)}</p>
           <div className="mt-9 flex flex-wrap justify-center gap-4">
@@ -170,18 +177,25 @@ export default async function Home() {
           <Link href="/insights" className="text-xs font-medium uppercase tracking-[0.12em] text-ink hover:text-accent">{p(TX.more)} →</Link>
         </div>
         <ul className="mt-10 border-t border-line">
-          {NOTICES.map((n) => (
-            <li key={n.title.ko} className="border-b border-line py-5">
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
-                <span className={`w-20 shrink-0 text-xs font-bold uppercase tracking-[0.1em] ${n.active ? "text-accent" : "text-muted"}`}>{p(n.status)}</span>
-                <div className="flex-1">
-                  <div className="font-semibold text-ink">{p(n.title)}</div>
-                  <div className="mt-1 text-sm text-muted">{p(n.desc)}</div>
+          {NOTICES.map((n) => {
+            // 마감일이 지나면 '모집중' → '마감' 으로 자동 전환 (콘텐츠가 오래돼도 안 썩게)
+            const deadline = (n as { deadline?: string }).deadline;
+            const expired = deadline ? new Date(deadline) < today : false;
+            const status = expired ? { ko: "마감", en: "Closed" } : n.status;
+            const isActive = expired ? false : n.active;
+            return (
+              <li key={n.title.ko} className="border-b border-line py-5">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
+                  <span className={`w-20 shrink-0 text-xs font-bold uppercase tracking-[0.1em] ${isActive ? "text-accent" : "text-muted"}`}>{p(status)}</span>
+                  <div className="flex-1">
+                    <div className="font-semibold text-ink">{p(n.title)}</div>
+                    <div className="mt-1 text-sm text-muted">{p(n.desc)}</div>
+                  </div>
+                  <span className="shrink-0 text-xs text-muted">{n.date}</span>
                 </div>
-                <span className="shrink-0 text-xs text-muted">{n.date}</span>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </section>
 

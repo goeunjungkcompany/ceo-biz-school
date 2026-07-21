@@ -39,6 +39,8 @@ export const UI = {
   comingSoon: { ko: "준비 중", en: "Coming soon" },
   menu: { ko: "메뉴", en: "Menu" },
   close: { ko: "닫기", en: "Close" },
+  current: { ko: "현재 페이지", en: "Current" },
+  currentShort: { ko: "현재", en: "Now" },
 };
 
 export function t(locale: Locale, pair: { ko: string; en: string }) {

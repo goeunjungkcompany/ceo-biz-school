@@ -60,28 +60,28 @@ export default async function Page() {
         <form className="border-t border-ink/80 pt-10">
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <label className={labelCls}>{p(T.name)}</label>
-              <input className={`mt-2 ${inputCls}`} placeholder={p(namePh)} />
+              <label htmlFor="name" className={labelCls}>{p(T.name)}</label>
+              <input id="name" name="name" type="text" required autoComplete="name" className={`mt-2 ${inputCls}`} placeholder={p(namePh)} />
             </div>
             <div>
-              <label className={labelCls}>{p(T.company)}</label>
-              <input className={`mt-2 ${inputCls}`} placeholder={p(companyPh)} />
+              <label htmlFor="company" className={labelCls}>{p(T.company)}</label>
+              <input id="company" name="company" type="text" autoComplete="organization" className={`mt-2 ${inputCls}`} placeholder={p(companyPh)} />
             </div>
             <div>
-              <label className={labelCls}>{p(T.title)}</label>
-              <input className={`mt-2 ${inputCls}`} placeholder={p(titlePh)} />
+              <label htmlFor="title" className={labelCls}>{p(T.title)}</label>
+              <input id="title" name="title" type="text" autoComplete="organization-title" className={`mt-2 ${inputCls}`} placeholder={p(titlePh)} />
             </div>
             <div>
-              <label className={labelCls}>{p(T.phone)}</label>
-              <input className={`mt-2 ${inputCls}`} placeholder="010-0000-0000" />
+              <label htmlFor="phone" className={labelCls}>{p(T.phone)}</label>
+              <input id="phone" name="phone" type="tel" required autoComplete="tel" inputMode="tel" className={`mt-2 ${inputCls}`} placeholder="010-0000-0000" />
             </div>
             <div className="sm:col-span-2">
-              <label className={labelCls}>{p(T.email)}</label>
-              <input className={`mt-2 ${inputCls}`} placeholder="email@example.com" />
+              <label htmlFor="email" className={labelCls}>{p(T.email)}</label>
+              <input id="email" name="email" type="email" required autoComplete="email" inputMode="email" className={`mt-2 ${inputCls}`} placeholder="email@example.com" />
             </div>
             <div className="sm:col-span-2">
-              <label className={labelCls}>{p(T.type)}</label>
-              <select className={`mt-2 ${inputCls}`} defaultValue="">
+              <label htmlFor="type" className={labelCls}>{p(T.type)}</label>
+              <select id="type" name="type" required defaultValue="" className={`mt-2 ${inputCls}`}>
                 <option value="" disabled>{p(T.typePlaceholder)}</option>
                 {INQUIRY_TYPES.map((t) => (
                   <option key={t.ko} value={t.ko}>{p(t)}</option>
@@ -89,13 +89,13 @@ export default async function Page() {
               </select>
             </div>
             <div className="sm:col-span-2">
-              <label className={labelCls}>{p(T.message)}</label>
-              <textarea rows={6} className={`mt-2 ${inputCls}`} placeholder={p(T.messagePlaceholder)} />
+              <label htmlFor="message" className={labelCls}>{p(T.message)}</label>
+              <textarea id="message" name="message" required rows={6} className={`mt-2 ${inputCls}`} placeholder={p(T.messagePlaceholder)} />
             </div>
           </div>
 
-          <label className="mt-6 flex items-start gap-3 text-sm text-muted">
-            <input type="checkbox" className="mt-1" />
+          <label htmlFor="consent" className="mt-6 flex items-start gap-3 text-sm text-muted">
+            <input id="consent" name="consent" type="checkbox" required className="mt-1" />
             {p(T.consent)}
           </label>
 

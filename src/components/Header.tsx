@@ -156,7 +156,7 @@ export default function Header({ locale }: { locale: Locale }) {
                     onClick={() => setMobileOpen(false)}
                   >
                     {label}
-                    {active && <span className="text-[11px] font-normal text-accent">현재 페이지</span>}
+                    {active && <span className="text-[11px] font-normal text-accent">{t(locale, UI.current)}</span>}
                   </Link>
                 );
               }
@@ -181,7 +181,7 @@ export default function Header({ locale }: { locale: Locale }) {
                             onClick={() => setMobileOpen(false)}
                           >
                             {t(locale, c)}
-                            {cActive && <span className="text-[11px] font-normal text-accent">현재</span>}
+                            {cActive && <span className="text-[11px] font-normal text-accent">{t(locale, UI.currentShort)}</span>}
                           </Link>
                         );
                       })
