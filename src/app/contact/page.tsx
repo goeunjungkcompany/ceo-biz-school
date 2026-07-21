@@ -1,20 +1,10 @@
 import { WRAP, PageHeader } from "@/components/ui";
 import { getLocale, pick } from "@/lib/locale";
+import ContactForm from "./ContactForm";
 
 export const metadata = { title: "문의 | CEO Business School" };
 
-/* ===== 문의 유형 / 연락처 (ko/en) ===== */
-const INQUIRY_TYPES = [
-  { ko: "교육 프로그램 문의", en: "Education program inquiry" },
-  { ko: "자문 문의", en: "Advisory inquiry" },
-  { ko: "CEO 클럽 가입 문의", en: "CEO Club membership" },
-  { ko: "출판물 관련 문의", en: "Publications inquiry" },
-  { ko: "기업 제휴 문의", en: "Partnership inquiry" },
-  { ko: "오프라인 캠퍼스 참여 신청", en: "Offline campus registration" },
-  { ko: "출간 알림 신청", en: "Book release alerts" },
-  { ko: "기타 문의", en: "Other inquiry" },
-];
-
+/* ===== 연락처 (ko/en) ===== */
 const CONTACT_INFO = [
   { k: { ko: "이메일", en: "Email" }, v: { ko: "ceoclub@ceobizschool.kr", en: "ceoclub@ceobizschool.kr" } },
   { k: { ko: "관악캠퍼스", en: "Gwanak Campus" }, v: { ko: "서울대학교 교수회관 (65동)", en: "SNU Faculty Hall (Bldg 65)" } },
@@ -24,28 +14,8 @@ const CONTACT_INFO = [
 
 const T = {
   desc: { ko: "지식과 전략의 최신화, 지금 시작하세요. 교육·자문·제휴 문의를 받습니다.", en: "Renew your knowledge and strategy today. We welcome education, advisory and partnership inquiries." },
-  name: { ko: "이름 *", en: "Name *" },
-  company: { ko: "회사명", en: "Company" },
-  title: { ko: "직책", en: "Title" },
-  phone: { ko: "연락처 *", en: "Phone *" },
-  email: { ko: "이메일 *", en: "Email *" },
-  type: { ko: "문의 유형 *", en: "Inquiry type *" },
-  typePlaceholder: { ko: "문의 유형을 선택하세요", en: "Select an inquiry type" },
-  message: { ko: "문의 내용 *", en: "Message *" },
-  messagePlaceholder: { ko: "문의 내용을 입력하세요", en: "Write your message" },
-  consent: { ko: "개인정보 수집 및 이용에 동의합니다. (필수)", en: "I agree to the collection and use of my personal information. (required)" },
-  send: { ko: "문의 보내기", en: "Send inquiry" },
-  note: { ko: "* 전송 기능은 연동 예정입니다.", en: "* Form submission will be connected soon." },
   reach: { ko: "Reach Us", en: "Reach Us" },
 };
-const namePh = { ko: "이름", en: "Name" };
-const companyPh = { ko: "회사명", en: "Company" };
-const titlePh = { ko: "직책", en: "Title" };
-/* ==================================== */
-
-const inputCls =
-  "w-full border border-line bg-paper px-4 py-3 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none";
-const labelCls = "font-mono text-[11px] uppercase tracking-[0.15em] text-muted";
 
 export default async function Page() {
   const locale = await getLocale();
@@ -56,54 +26,8 @@ export default async function Page() {
       <PageHeader eyebrow="Contact" title={locale === "ko" ? "문의" : "Contact"} desc={p(T.desc)} />
 
       <section className={`${WRAP} grid gap-14 py-20 lg:grid-cols-[1.5fr_1fr]`}>
-        {/* 폼 */}
-        <form className="border-t border-ink/80 pt-10">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <label htmlFor="name" className={labelCls}>{p(T.name)}</label>
-              <input id="name" name="name" type="text" required autoComplete="name" className={`mt-2 ${inputCls}`} placeholder={p(namePh)} />
-            </div>
-            <div>
-              <label htmlFor="company" className={labelCls}>{p(T.company)}</label>
-              <input id="company" name="company" type="text" autoComplete="organization" className={`mt-2 ${inputCls}`} placeholder={p(companyPh)} />
-            </div>
-            <div>
-              <label htmlFor="title" className={labelCls}>{p(T.title)}</label>
-              <input id="title" name="title" type="text" autoComplete="organization-title" className={`mt-2 ${inputCls}`} placeholder={p(titlePh)} />
-            </div>
-            <div>
-              <label htmlFor="phone" className={labelCls}>{p(T.phone)}</label>
-              <input id="phone" name="phone" type="tel" required autoComplete="tel" inputMode="tel" className={`mt-2 ${inputCls}`} placeholder="010-0000-0000" />
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="email" className={labelCls}>{p(T.email)}</label>
-              <input id="email" name="email" type="email" required autoComplete="email" inputMode="email" className={`mt-2 ${inputCls}`} placeholder="email@example.com" />
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="type" className={labelCls}>{p(T.type)}</label>
-              <select id="type" name="type" required defaultValue="" className={`mt-2 ${inputCls}`}>
-                <option value="" disabled>{p(T.typePlaceholder)}</option>
-                {INQUIRY_TYPES.map((t) => (
-                  <option key={t.ko} value={t.ko}>{p(t)}</option>
-                ))}
-              </select>
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="message" className={labelCls}>{p(T.message)}</label>
-              <textarea id="message" name="message" required rows={6} className={`mt-2 ${inputCls}`} placeholder={p(T.messagePlaceholder)} />
-            </div>
-          </div>
-
-          <label htmlFor="consent" className="mt-6 flex items-start gap-3 text-sm text-muted">
-            <input id="consent" name="consent" type="checkbox" required className="mt-1" />
-            {p(T.consent)}
-          </label>
-
-          <button type="button" className="mt-8 bg-navy px-8 py-4 text-sm font-medium text-paper transition-colors hover:bg-ink">
-            {p(T.send)} →
-          </button>
-          <p className="mt-3 font-mono text-[11px] text-muted">{p(T.note)}</p>
-        </form>
+        {/* 폼 (실제 전송 → contacts 테이블) */}
+        <ContactForm locale={locale} />
 
         {/* 연락처 */}
         <aside className="border-t border-ink/80 pt-10">

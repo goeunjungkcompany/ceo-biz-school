@@ -6,7 +6,7 @@ import { useState } from "react";
 import type { Locale } from "@/lib/locale";
 import { NAV, UI, t } from "@/lib/nav";
 
-export default function Header({ locale }: { locale: Locale }) {
+export default function Header({ locale, userEmail }: { locale: Locale; userEmail?: string | null }) {
   const router = useRouter();
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -116,9 +116,12 @@ export default function Header({ locale }: { locale: Locale }) {
             <span className="mx-1 text-line">/</span>
             <button onClick={() => switchLocale("en")} className={locale === "en" ? "text-accent" : "text-muted hover:text-ink"}>EN</button>
           </div>
-          <button className="hidden bg-navy px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ink sm:block">
-            {t(locale, UI.login)}
-          </button>
+          <Link
+            href={userEmail ? "/account" : "/login"}
+            className="hidden bg-navy px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ink sm:block"
+          >
+            {t(locale, userEmail ? UI.account : UI.login)}
+          </Link>
 
           {/* 햄버거 */}
           <button
@@ -196,7 +199,9 @@ export default function Header({ locale }: { locale: Locale }) {
                 <span className="mx-1 text-line">/</span>
                 <button onClick={() => switchLocale("en")} className={locale === "en" ? "text-accent" : "text-muted"}>EN</button>
               </div>
-              <button className="bg-navy px-4 py-2 text-xs font-medium text-paper">{t(locale, UI.login)}</button>
+              <Link href={userEmail ? "/account" : "/login"} onClick={() => setMobileOpen(false)} className="bg-navy px-4 py-2 text-xs font-medium text-paper">
+                {t(locale, userEmail ? UI.account : UI.login)}
+              </Link>
             </div>
           </nav>
         </div>

@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getLocale } from "@/lib/locale";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const TITLE = "CEO Business School | 지식 최신화, 전략 최신화";
 const DESCRIPTION =
@@ -36,6 +37,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+  const supabase = await createSupabaseServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
   return (
     <html lang={locale} className="h-full">
       <head>
@@ -51,7 +54,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="flex min-h-full flex-col antialiased">
-        <Header locale={locale} />
+        <Header locale={locale} userEmail={user?.email ?? null} />
         {children}
         <Footer locale={locale} />
       </body>
