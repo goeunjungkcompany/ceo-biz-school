@@ -1,4 +1,5 @@
 import { WRAP, PageHeader, SectionHead, CtaBanner } from "@/components/ui";
+import { Balanced } from "@/components/Balanced";
 import { getLocale, pick } from "@/lib/locale";
 
 export const metadata = { title: "온라인 교육 | CEO Business School" };
@@ -68,7 +69,7 @@ export default async function Page() {
             <div key={f.no} className="bg-paper p-7">
               <span className="font-mono text-xs text-accent">{f.no}</span>
               <div className="mt-6 font-serif text-lg font-semibold text-ink">{p(f.title)}</div>
-              <p className="mt-2 text-balance text-sm leading-relaxed text-muted">{p(f.desc)}</p>
+              <p className="mt-2 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(f.desc)} /></p>
             </div>
           ))}
         </div>
@@ -83,7 +84,7 @@ export default async function Page() {
               <div key={pl.no} className="flex flex-col bg-surface p-7">
                 <span className="font-mono text-xs text-accent">{pl.no}</span>
                 <div className="mt-6 font-serif text-xl font-semibold text-ink">{p(pl.name)}</div>
-                <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(pl.desc)}</p>
+                <p className="mt-3 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(pl.desc)} /></p>
                 <ul className="mt-5 flex-1 space-y-2">
                   {pl.tags.map((tg, i) => (
                     <li key={i} className="flex gap-2 text-[13px] text-muted"><span className="mt-2 h-1 w-1 shrink-0 bg-accent" />{p(tg)}</li>

@@ -1,4 +1,5 @@
 import { WRAP, PageHeader, SectionHead, Placeholder, CtaBanner } from "@/components/ui";
+import { Balanced } from "@/components/Balanced";
 import { getLocale, pick } from "@/lib/locale";
 import { getSiteImageMap } from "@/lib/site-images";
 
@@ -103,7 +104,7 @@ export default async function Page() {
                 <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-accent">{b.year} · {p(T.upcoming)}</div>
                 <div className="mt-4 font-serif text-2xl font-semibold text-ink">{p(b.title)}</div>
                 <div className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-muted">{b.en}</div>
-                <p className="mt-4 text-balance text-sm leading-relaxed text-muted">{p(b.desc)}</p>
+                <p className="mt-4 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(b.desc)} /></p>
                 <ul className="mt-5 space-y-2">
                   {b.toc.map((t, i) => (
                     <li key={i} className="flex gap-2 text-[13px] text-muted"><span className="mt-2 h-1 w-1 shrink-0 bg-line" />{p(t)}</li>

@@ -1,4 +1,5 @@
 import { WRAP, PageHeader, SectionHead, CtaBanner } from "@/components/ui";
+import { Balanced } from "@/components/Balanced";
 import { getLocale, pick } from "@/lib/locale";
 
 export const metadata = { title: "인사이트 | CEO Business School" };
@@ -52,7 +53,7 @@ export default async function Page() {
                 <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">{c.count} {p(T.count)}</span>
               </div>
               <div className="mt-6 font-serif text-lg font-semibold text-ink">{p(c.name)}</div>
-              <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(c.desc)}</p>
+              <p className="mt-3 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(c.desc)} /></p>
             </div>
           ))}
         </div>

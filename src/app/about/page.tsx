@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Balanced } from "@/components/Balanced";
 import { WRAP, SectionHead, Placeholder, CtaBanner } from "@/components/ui";
 import { getLocale, pick } from "@/lib/locale";
 import { getSiteImageMap } from "@/lib/site-images";
@@ -148,7 +149,7 @@ export default async function Page() {
               <div key={pl.no} className="bg-surface p-7">
                 <span className="font-mono text-xs text-accent">{pl.no}</span>
                 <div className="mt-6 font-serif text-xl font-bold text-ink">{p(pl.title)}</div>
-                <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(pl.desc)}</p>
+                <p className="mt-3 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(pl.desc)} /></p>
               </div>
             ))}
           </div>
@@ -198,7 +199,7 @@ export default async function Page() {
               <div key={c.no} className="bg-surface p-7">
                 <span className="font-mono text-xs text-accent">{c.no}</span>
                 <div className="mt-4 font-serif text-lg font-bold text-ink">{p(c.title)}</div>
-                <p className="mt-2 text-balance text-sm leading-relaxed text-muted">{p(c.desc)}</p>
+                <p className="mt-2 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(c.desc)} /></p>
               </div>
             ))}
           </div>
@@ -247,7 +248,7 @@ export default async function Page() {
             <div key={s.no} className="bg-paper p-7">
               <span className="font-mono text-xs text-accent">{s.no}</span>
               <div className="mt-6 font-serif text-lg font-bold text-ink">{p(s.title)}</div>
-              <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(s.desc)}</p>
+              <p className="mt-3 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(s.desc)} /></p>
             </div>
           ))}
         </div>

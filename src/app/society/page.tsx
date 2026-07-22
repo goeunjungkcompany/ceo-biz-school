@@ -1,4 +1,5 @@
 import { WRAP, PageHeader, SectionHead, CtaBanner } from "@/components/ui";
+import { Balanced } from "@/components/Balanced";
 import { getLocale, pick } from "@/lib/locale";
 
 export const metadata = { title: "AI고용학회 | CEO Business School" };
@@ -48,7 +49,7 @@ export default async function Page() {
             <div key={it.no} className="bg-paper p-7">
               <span className="font-mono text-xs text-accent">{it.no}</span>
               <div className="mt-6 font-serif text-lg font-semibold text-ink">{p(it.title)}</div>
-              <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(it.desc)}</p>
+              <p className="mt-3 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(it.desc)} /></p>
             </div>
           ))}
         </div>
@@ -63,7 +64,7 @@ export default async function Page() {
               <div key={r.no} className="bg-surface p-7">
                 <span className="font-mono text-xs text-accent">{r.no}</span>
                 <div className="mt-6 font-serif text-xl font-semibold text-ink">{p(r.title)}</div>
-                <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(r.desc)}</p>
+                <p className="mt-3 text-balance text-sm leading-relaxed text-muted"><Balanced text={p(r.desc)} /></p>
               </div>
             ))}
           </div>
