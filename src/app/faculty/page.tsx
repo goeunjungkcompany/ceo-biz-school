@@ -1,5 +1,6 @@
 import { WRAP, PageHeader, SectionHead, Placeholder, CtaBanner } from "@/components/ui";
 import { getLocale, pick } from "@/lib/locale";
+import { getSiteImageMap } from "@/lib/site-images";
 
 export const metadata = { title: "교수진 | CEO Business School" };
 
@@ -124,6 +125,7 @@ const T = {
 
 export default async function Page() {
   const locale = await getLocale();
+  const imgs = await getSiteImageMap();
   const p = (x: { ko: string; en: string }) => pick(locale, x);
 
   return (
@@ -135,7 +137,7 @@ export default async function Page() {
         <SectionHead index="01" kicker="Founder" title={p(T.founder)} />
         <div className="mt-10 grid gap-10 border-t border-line pt-10 md:grid-cols-[0.8fr_1.6fr]">
           <div>
-            <Placeholder label="Photo" src={FOUNDER.photo} alt={p(FOUNDER.name)} className="aspect-[3/4]" />
+            <Placeholder label="Photo" src={imgs.faculty_founder ?? FOUNDER.photo} alt={p(FOUNDER.name)} className="aspect-[3/4]" />
             <div className="mt-6 font-serif text-3xl font-semibold text-ink">{p(FOUNDER.name)}</div>
             <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-accent">{p(FOUNDER.role)}</div>
             <div className="mt-1 font-mono text-[11px] tracking-[0.05em] text-muted">{p(FOUNDER.tag)}</div>
@@ -164,9 +166,9 @@ export default async function Page() {
         <div className={`${WRAP} py-20`}>
           <SectionHead index="02" kicker="Faculty" title={p(T.faculty)} desc={p(T.facultyDesc)} />
           <div className="mt-10 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-            {FACULTY.map((f) => (
+            {FACULTY.map((f, i) => (
               <div key={f.name.ko} className="flex flex-col bg-surface p-7">
-                <Placeholder label="Photo" src={f.photo} alt={p(f.name)} className="aspect-[4/5]" />
+                <Placeholder label="Photo" src={imgs[`faculty_${i}`] ?? f.photo} alt={p(f.name)} className="aspect-[4/5]" />
                 <div className="mt-6 font-serif text-xl font-semibold text-ink">{p(f.name)}</div>
                 <div className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">{p(f.role)}</div>
                 <ul className="mt-5 flex-1 space-y-2">

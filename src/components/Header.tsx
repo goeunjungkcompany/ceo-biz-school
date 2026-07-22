@@ -6,7 +6,7 @@ import { useState } from "react";
 import type { Locale } from "@/lib/locale";
 import { NAV, UI, t } from "@/lib/nav";
 
-export default function Header({ locale, userEmail }: { locale: Locale; userEmail?: string | null }) {
+export default function Header({ locale, userEmail, isAdmin }: { locale: Locale; userEmail?: string | null; isAdmin: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -116,6 +116,14 @@ export default function Header({ locale, userEmail }: { locale: Locale; userEmai
             <span className="mx-1 text-line">/</span>
             <button onClick={() => switchLocale("en")} className={locale === "en" ? "text-accent" : "text-muted hover:text-ink"}>EN</button>
           </div>
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="hidden border border-line px-3 py-2 text-xs font-medium text-ink transition-colors hover:border-accent hover:text-accent sm:block"
+            >
+              {t(locale, UI.admin)}
+            </Link>
+          )}
           <Link
             href={userEmail ? "/account" : "/login"}
             className="hidden bg-navy px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ink sm:block"
@@ -199,9 +207,16 @@ export default function Header({ locale, userEmail }: { locale: Locale; userEmai
                 <span className="mx-1 text-line">/</span>
                 <button onClick={() => switchLocale("en")} className={locale === "en" ? "text-accent" : "text-muted"}>EN</button>
               </div>
-              <Link href={userEmail ? "/account" : "/login"} onClick={() => setMobileOpen(false)} className="bg-navy px-4 py-2 text-xs font-medium text-paper">
-                {t(locale, userEmail ? UI.account : UI.login)}
-              </Link>
+              <div className="flex items-center gap-2">
+                {isAdmin && (
+                  <Link href="/admin" onClick={() => setMobileOpen(false)} className="border border-line px-3 py-2 text-xs font-medium text-ink">
+                    {t(locale, UI.admin)}
+                  </Link>
+                )}
+                <Link href={userEmail ? "/account" : "/login"} onClick={() => setMobileOpen(false)} className="bg-navy px-4 py-2 text-xs font-medium text-paper">
+                  {t(locale, userEmail ? UI.account : UI.login)}
+                </Link>
+              </div>
             </div>
           </nav>
         </div>

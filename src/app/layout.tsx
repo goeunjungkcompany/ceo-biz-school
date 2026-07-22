@@ -39,6 +39,16 @@ export default async function RootLayout({
   const locale = await getLocale();
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
+
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+    isAdmin = profile?.role === "admin";
+  }
   return (
     <html lang={locale} className="h-full">
       <head>
@@ -54,7 +64,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="flex min-h-full flex-col antialiased">
-        <Header locale={locale} userEmail={user?.email ?? null} />
+        <Header locale={locale} userEmail={user?.email ?? null} isAdmin={isAdmin} />
         {children}
         <Footer locale={locale} />
       </body>

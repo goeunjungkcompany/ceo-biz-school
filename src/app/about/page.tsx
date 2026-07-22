@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { WRAP, SectionHead, Placeholder, CtaBanner } from "@/components/ui";
 import { getLocale, pick } from "@/lib/locale";
+import { getSiteImageMap } from "@/lib/site-images";
 
 export const metadata = { title: "소개 | CEO Business School" };
 
@@ -93,6 +94,7 @@ const T = {
 
 export default async function Page() {
   const locale = await getLocale();
+  const imgs = await getSiteImageMap();
   const p = (x: { ko: string; en: string }) => pick(locale, x);
 
   return (
@@ -206,7 +208,7 @@ export default async function Page() {
         <div className={`${WRAP} py-20`}>
           <SectionHead index="03" kicker="Founder" title={p(T.founder)} desc={p(T.founderTag)} />
           <div className="mt-10 grid gap-10 border-t border-line pt-10 md:grid-cols-[0.8fr_1.5fr]">
-            <Placeholder label="Photo" src={FOUNDER_PHOTO} alt={p(T.founderName)} className="aspect-[3/4]" />
+            <Placeholder label="Photo" src={imgs.about_founder ?? FOUNDER_PHOTO} alt={p(T.founderName)} className="aspect-[3/4]" />
             <div>
               <div className="font-serif text-2xl font-bold text-ink">{p(T.founderName)}</div>
               <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-accent">{p(T.founderRole)}</div>

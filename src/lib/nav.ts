@@ -37,6 +37,7 @@ export const UI = {
   tagline: { ko: "지식 최신화 · 전략 최신화", en: "Knowledge Renewed · Strategy Renewed" },
   login: { ko: "로그인", en: "Log in" },
   account: { ko: "내 정보", en: "Account" },
+  admin: { ko: "관리자", en: "Admin" },
   comingSoon: { ko: "준비 중", en: "Coming soon" },
   menu: { ko: "메뉴", en: "Menu" },
   close: { ko: "닫기", en: "Close" },

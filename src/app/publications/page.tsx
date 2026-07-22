@@ -1,5 +1,6 @@
 import { WRAP, PageHeader, SectionHead, Placeholder, CtaBanner } from "@/components/ui";
 import { getLocale, pick } from "@/lib/locale";
+import { getSiteImageMap } from "@/lib/site-images";
 
 export const metadata = { title: "출판 | CEO Business School" };
 
@@ -58,6 +59,7 @@ function label(x: string | { ko: string; en: string }, locale: "ko" | "en") {
 
 export default async function Page() {
   const locale = await getLocale();
+  const imgs = await getSiteImageMap();
   const p = (x: { ko: string; en: string }) => pick(locale, x);
 
   return (
@@ -68,7 +70,7 @@ export default async function Page() {
       <section className={`${WRAP} py-20`}>
         <SectionHead index="01" kicker="Featured Book" title={p(T.featured)} />
         <div className="mt-10 grid gap-10 border-t border-line pt-10 md:grid-cols-[0.7fr_1.6fr]">
-          <Placeholder label="Book Cover" src={FEATURED.cover} alt={p(FEATURED.title)} className="aspect-[3/4]" />
+          <Placeholder label="Book Cover" src={imgs.publications_featured ?? FEATURED.cover} alt={p(FEATURED.title)} className="aspect-[3/4]" />
           <div>
             <div className="font-serif text-3xl font-semibold text-ink">{p(FEATURED.title)}</div>
             <div className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-muted">{FEATURED.en}</div>
