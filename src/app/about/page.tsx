@@ -103,16 +103,16 @@ export default async function Page() {
       <section className="relative overflow-hidden border-b border-line">
         {/* 우측 배경 사진 — 글씨(왼쪽)로 갈수록 옅어짐. 관리자에서 교체 가능 */}
         {imgs.about_hero_bg && (
-          <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden md:block">
+          <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
             <img
               src={imgs.about_hero_bg}
               alt=""
-              className="absolute right-0 top-0 h-full w-3/5 object-cover opacity-40"
+              className="absolute right-0 top-0 h-full w-full object-cover opacity-60 md:w-3/4"
               style={{
                 WebkitMaskImage:
-                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 35%, #000 100%)",
+                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 30%, #000 70%)",
                 maskImage:
-                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 35%, #000 100%)",
+                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 30%, #000 70%)",
               }}
             />
           </div>
