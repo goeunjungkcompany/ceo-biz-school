@@ -179,11 +179,11 @@ export default async function Page() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-line pt-10">
+        <div className="mt-12 border-t border-line pt-10 text-center">
           <div className="font-serif text-xl font-bold text-ink">{p(T.notSchool)}</div>
-          <p className="mt-4 max-w-3xl leading-relaxed text-muted">{p(T.notSchool1)}</p>
-          <p className="mt-4 max-w-3xl leading-relaxed text-muted">{p(T.notSchool2)}</p>
-          <blockquote className="mt-8 border-l-2 border-accent pl-6">
+          <p className="mx-auto mt-4 max-w-3xl leading-relaxed text-muted">{p(T.notSchool1)}</p>
+          <p className="mx-auto mt-4 max-w-3xl leading-relaxed text-muted">{p(T.notSchool2)}</p>
+          <blockquote className="mx-auto mt-8 max-w-2xl">
             <p className="font-serif text-2xl font-bold text-ink">{p(T.question)}</p>
             <p className="mt-3 leading-relaxed text-muted">{p(T.questionAns)}</p>
           </blockquote>
