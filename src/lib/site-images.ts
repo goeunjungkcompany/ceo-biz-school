@@ -10,6 +10,7 @@ export const IMAGE_BUCKET = "site-images";
 
 /** 사이트에서 교체 가능한 이미지 자리 목록. label 은 관리자 화면에 표시. */
 export const IMAGE_SLOTS = [
+  { key: "about_hero_bg", label: "소개 — 상단 배경 사진 (우측, 반투명)", ratio: "aspect-[16/9]" },
   { key: "about_founder", label: "소개 — 창업자 사진", ratio: "aspect-[3/4]" },
   { key: "faculty_founder", label: "교수진 — 대표 사진", ratio: "aspect-[3/4]" },
   { key: "faculty_0", label: "교수진 — 안중호 교수", ratio: "aspect-[4/5]" },

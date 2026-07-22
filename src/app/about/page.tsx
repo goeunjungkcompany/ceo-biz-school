@@ -100,8 +100,24 @@ export default async function Page() {
   return (
     <main>
       {/* 히어로 */}
-      <section className="border-b border-line">
-        <div className={`${WRAP} pt-24 pb-16 lg:pt-28`} style={{ backgroundImage: "linear-gradient(to right, rgba(20,40,160,0.05) 1px, transparent 1px)", backgroundSize: "84px 100%" }}>
+      <section className="relative overflow-hidden border-b border-line">
+        {/* 우측 배경 사진 — 글씨(왼쪽)로 갈수록 옅어짐. 관리자에서 교체 가능 */}
+        {imgs.about_hero_bg && (
+          <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden md:block">
+            <img
+              src={imgs.about_hero_bg}
+              alt=""
+              className="absolute right-0 top-0 h-full w-3/5 object-cover opacity-40"
+              style={{
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 35%, #000 100%)",
+                maskImage:
+                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 35%, #000 100%)",
+              }}
+            />
+          </div>
+        )}
+        <div className={`${WRAP} relative z-10 pt-24 pb-16 lg:pt-28`} style={{ backgroundImage: "linear-gradient(to right, rgba(20,40,160,0.05) 1px, transparent 1px)", backgroundSize: "84px 100%" }}>
           <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">{p(T.eyebrow)}</div>
           <h1 className="mt-6 font-serif text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
             {locale === "ko" ? (<>AI 시대의<br />새로운 대학 모델</>) : (<>A new university<br />for the AI era</>)}
