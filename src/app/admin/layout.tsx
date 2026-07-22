@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/supabase/guard";
+import { signOut } from "@/app/login/actions";
 import { WRAP } from "@/components/ui";
 
 export const metadata = { title: "관리자 | CEO Business School" };
@@ -31,7 +32,17 @@ export default async function AdminLayout({
           <h1 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
             관리자
           </h1>
-          <p className="mt-3 text-sm text-muted">{user.email}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted">
+            <span>{user.email} 님으로 로그인됨</span>
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="border border-line px-3 py-1 text-xs text-ink transition-colors hover:border-accent hover:text-accent"
+              >
+                로그아웃
+              </button>
+            </form>
+          </div>
 
           <nav className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
             {TABS.map((tab) => (
