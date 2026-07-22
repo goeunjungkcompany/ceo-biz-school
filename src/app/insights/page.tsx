@@ -52,7 +52,7 @@ export default async function Page() {
                 <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">{c.count} {p(T.count)}</span>
               </div>
               <div className="mt-6 font-serif text-lg font-semibold text-ink">{p(c.name)}</div>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{p(c.desc)}</p>
+              <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(c.desc)}</p>
             </div>
           ))}
         </div>

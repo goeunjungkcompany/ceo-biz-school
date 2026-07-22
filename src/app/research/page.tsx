@@ -74,7 +74,7 @@ export default async function Page() {
             <p className="leading-relaxed text-muted">{p(T.mainDesc)}</p>
             <div className="mt-8 border-t border-line pt-6">
               <div className="font-serif text-lg font-semibold text-ink">{p(T.labName)}</div>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{p(T.labDesc)}</p>
+              <p className="mt-2 text-balance text-sm leading-relaxed text-muted">{p(T.labDesc)}</p>
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {LAB_POINTS.map((l, i) => (
                   <li key={i} className="flex gap-2 text-[13px] text-ink"><span className="mt-2 h-1 w-1 shrink-0 bg-accent" />{p(l)}</li>
@@ -89,7 +89,7 @@ export default async function Page() {
             <div key={o.no} className="bg-paper p-7">
               <span className="font-mono text-xs text-accent">{o.no}</span>
               <div className="mt-4 font-serif text-xl font-semibold text-ink">{p(o.name)}</div>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{p(o.desc)}</p>
+              <p className="mt-2 text-balance text-sm leading-relaxed text-muted">{p(o.desc)}</p>
             </div>
           ))}
         </div>

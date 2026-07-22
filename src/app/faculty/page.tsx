@@ -141,7 +141,7 @@ export default async function Page() {
             <div className="mt-6 font-serif text-3xl font-semibold text-ink">{p(FOUNDER.name)}</div>
             <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-accent">{p(FOUNDER.role)}</div>
             <div className="mt-1 font-mono text-[11px] tracking-[0.05em] text-muted">{p(FOUNDER.tag)}</div>
-            <p className="mt-6 text-sm leading-relaxed text-muted">{p(FOUNDER.intro)}</p>
+            <p className="mt-6 text-balance text-sm leading-relaxed text-muted">{p(FOUNDER.intro)}</p>
           </div>
           <div className="space-y-8">
             {FOUNDER.groups.map((g) => (

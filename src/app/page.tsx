@@ -214,7 +214,7 @@ export default async function Home() {
                   <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted">{p(a.kind)}</span>
                 </div>
                 <div className="mt-4 font-serif text-lg font-bold text-ink">{p(a.title)}</div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{p(a.desc)}</p>
+                <p className="mt-2 text-balance text-sm leading-relaxed text-muted">{p(a.desc)}</p>
               </Link>
             ))}
           </div>
@@ -262,7 +262,7 @@ export default async function Home() {
                   <span className="text-muted">{p(i.cat)} · {i.date}</span>
                 </div>
                 <div className="mt-4 font-serif text-xl font-bold leading-snug text-ink transition-colors group-hover:text-accent">{p(i.title)}</div>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{p(i.desc)}</p>
+                <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(i.desc)}</p>
               </Link>
             ))}
           </div>
@@ -305,7 +305,7 @@ export default async function Home() {
               <span className="text-xs font-bold text-accent">{c.no}</span>
               <div className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-muted">{p(c.name)}</div>
               <div className="mt-2 font-serif text-xl font-bold text-ink">{p(c.place)}</div>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{p(c.addr)}</p>
+              <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(c.addr)}</p>
             </div>
           ))}
         </div>

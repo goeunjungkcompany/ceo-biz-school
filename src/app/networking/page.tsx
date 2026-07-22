@@ -46,7 +46,7 @@ export default async function Page() {
             <div key={b.no} className="bg-paper p-7">
               <span className="font-mono text-xs text-accent">{b.no}</span>
               <div className="mt-6 font-serif text-lg font-semibold text-ink">{p(b.title)}</div>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{p(b.desc)}</p>
+              <p className="mt-3 text-balance text-sm leading-relaxed text-muted">{p(b.desc)}</p>
             </div>
           ))}
         </div>
@@ -64,7 +64,7 @@ export default async function Page() {
                   <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">{p(a.freq)}</span>
                 </div>
                 <div className="mt-6 font-serif text-lg font-semibold text-ink">{p(a.name)}</div>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{p(a.desc)}</p>
+                <p className="mt-3 flex-1 text-balance text-sm leading-relaxed text-muted">{p(a.desc)}</p>
                 <div className="mt-5 border-t border-line pt-3 font-mono text-[11px] text-muted">{p(T.place)} · {p(a.place)}</div>
               </div>
             ))}
